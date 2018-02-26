@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "found": "^0.3.8",
+        "material-ui": "^1.0.0-beta.35",
         "prop-types": "^15.6.0",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
@@ -21,9 +22,9 @@
         "relay-compiler": "^1.5.0"
     },
     "devDependencies": {
-    "parcel-bundler": "^1.6.2",
+        "babel-plugin-relay": "^1.5.0",
         "babel-preset-env": "^1.6.1",
         "babel-preset-react": "^6.24.1",
-        "babel-plugin-relay": "^1.5.0"
-    },
+        "parcel-bundler": "^1.6.2"
+    }
 }
