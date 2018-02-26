@@ -1,16 +1,29 @@
 {
-  "name": "client-web",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-scripts": "1.1.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "name": "client-web",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/DungeonsAndDragons/client-web",
+    "author": "Til Blechschmidt <til@blechschmidt.de>",
+    "private": true,
+    "scripts": {
+        "relay": "relay-compiler --src ./src --schema ./schemes/graphql/schema.graphql",
+        "start": "parcel src/index.html --no-cache",
+        "build": "parcel build src/index.html --no-cache --public-url ./ "
+    },
+    "dependencies": {
+        "found": "^0.3.8",
+        "prop-types": "^15.6.0",
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0",
+        "react-helmet": "^5.2.0",
+        "react-jss": "^8.3.3",
+        "react-relay": "^1.5.0",
+        "relay-compiler": "^1.5.0"
+    },
+    "devDependencies": {
+    "parcel-bundler": "^1.6.2",
+        "babel-preset-env": "^1.6.1",
+        "babel-preset-react": "^6.24.1",
+        "babel-plugin-relay": "^1.5.0"
+    },
 }
