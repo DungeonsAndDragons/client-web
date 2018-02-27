@@ -1,4 +1,4 @@
 {
-    "presets": ["env", "react"],
-    "plugins": ["relay"]
+    "presets": ["flow", "react", "env"],
+    "plugins": ["transform-class-properties"]
 }
