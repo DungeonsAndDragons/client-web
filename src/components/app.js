@@ -11,6 +11,7 @@ import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/Icon';
 
 import { isTokenValid } from '../auth'
+import { client } from '../graphql'
 
 const t = createMuiTheme({
   palette: {
@@ -74,6 +75,7 @@ class App extends React.Component {
     doLogout = () => {
         this.handleClose();
         sessionStorage.clear();
+        client.resetStore();
         setTimeout(() => {
             this.props.router.push('/login');
         }, 500);
