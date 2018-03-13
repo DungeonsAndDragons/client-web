@@ -6,8 +6,6 @@ import gql from 'graphql-tag';
 
 import Grid from 'material-ui/Grid';
 import Subheader from 'material-ui/List/ListSubheader';
-import Typography from 'material-ui/Typography';
-import Modal from 'material-ui/Modal';
 
 import CharacterListItem from './characterListItem';
 import {getPlayerID} from "../../../auth";
@@ -35,7 +33,7 @@ const GQL_GET_CHARACTERS = gql`
 `;
 
 class CharacterList extends React.Component {
-    constructor(args) {
+    constructor() {
         super();
 
         this.state = {
