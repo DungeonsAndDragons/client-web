@@ -6,6 +6,7 @@ import Card, { CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
 import placeholderImage from '../../../assets/Mindartis.png';
+import {getBinaryURL} from "../../../binaryStorage";
 
 const styles = theme => ({
     root: {
@@ -41,7 +42,7 @@ class CharacterListItem extends React.Component {
             <Card className={classes.card} onClick={this.onCharacterClick}>
                 <CardMedia
                     style={{ height: imageHeight ? imageHeight : 300 }}
-                    image={placeholderImage}
+                    image={getBinaryURL(character.image)}
                     title={character.name}
                 />
                 <CardContent className={classes.cardContent}>

@@ -5,7 +5,9 @@ import makeRouteConfig from 'found/lib/makeRouteConfig';
 import Route from 'found/lib/Route';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ApolloProvider } from 'react-apollo';
 
+import { client } from './graphql'
 import App from './components/app';
 import Login from './components/login';
 import Dashboard from './components/dashboard/dashboard';
@@ -50,4 +52,9 @@ const BrowserRouter = createBrowserRouter({
     ) => <div>{error.status === 404 ? 'Not found' : 'Error'}</div>,
 });
 
-ReactDOM.render(<BrowserRouter />, document.getElementById('root'));
+ReactDOM.render(
+    <ApolloProvider client={client}>
+        <BrowserRouter />
+    </ApolloProvider>,
+    document.getElementById('root')
+);

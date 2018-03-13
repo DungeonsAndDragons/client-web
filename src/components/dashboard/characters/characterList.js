@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 import Grid from 'material-ui/Grid';
 import Subheader from 'material-ui/List/ListSubheader';
@@ -9,25 +11,30 @@ import Modal from 'material-ui/Modal';
 
 import CharacterListItem from './characterListItem';
 import {getPlayerID} from "../../../auth";
+import Loader from "../../loader/loader";
 
 const styles = theme => ({
-    root: {}
+    root: {},
+    loader: {
+        height: '100%'
+    }
 });
 
-class CharacterList extends React.Component {
-    characters = [
-        { id: 1, name: 'Mindartis', player: { id: 1, name: "Noah Peeters" }, img: 'https://i.pinimg.com/originals/2c/12/df/2c12dffe2001e857df79bc8ca0b8d8a6.jpg' },
-        { id: 2, name: 'Zuuk', player: { id: 1, name: "Noah Peeters" }, img: 'https://i.pinimg.com/originals/2c/12/df/2c12dffe2001e857df79bc8ca0b8d8a6.jpg' },
-        { id: 1, name: 'Mindartis0', player: { id: 3, name: "Noah Peeters" }, img: 'https://i.pinimg.com/originals/2c/12/df/2c12dffe2001e857df79bc8ca0b8d8a6.jpg' },
-        { id: 2, name: 'Mindartis1', player: { id: 4, name: "Noah Peeters" }, img: 'https://i.pinimg.com/originals/2c/12/df/2c12dffe2001e857df79bc8ca0b8d8a6.jpg' },
-        { id: 3, name: 'Mindartis2', player: { id: 5, name: "Noah Peeters" }, img: 'https://i.pinimg.com/originals/2c/12/df/2c12dffe2001e857df79bc8ca0b8d8a6.jpg' },
-        { id: 4, name: 'Mindartis3', player: { id: 6, name: "Noah Peeters" }, img: 'https://i.pinimg.com/originals/2c/12/df/2c12dffe2001e857df79bc8ca0b8d8a6.jpg' },
-        { id: 5, name: 'Mindartis4', player: { id: 7, name: "Noah Peeters" }, img: 'https://i.pinimg.com/originals/2c/12/df/2c12dffe2001e857df79bc8ca0b8d8a6.jpg' },
-        { id: 6, name: 'Mindartis5', player: { id: 8, name: "Noah Peeters" }, img: 'https://i.pinimg.com/originals/2c/12/df/2c12dffe2001e857df79bc8ca0b8d8a6.jpg' },
-        { id: 7, name: 'Mindartis6', player: { id: 9, name: "Noah Peeters" }, img: 'https://i.pinimg.com/originals/2c/12/df/2c12dffe2001e857df79bc8ca0b8d8a6.jpg' },
-        { id: 8, name: 'SuperAwesomeCharacterWithSuperLongName', player: { id: 2, name: "Noah Peeters" }, img: 'https://i.pinimg.com/originals/2c/12/df/2c12dffe2001e857df79bc8ca0b8d8a6.jpg' }
-    ];
+const GQL_GET_CHARACTERS = gql`
+    query {
+        characters {
+            id
+            name
+            player {
+                id
+                name
+            }
+            image
+        }
+    }
+`;
 
+class CharacterList extends React.Component {
     constructor(args) {
         super();
 
@@ -37,10 +44,16 @@ class CharacterList extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { data, classes } = this.props;
 
-        const ownCharacters = this.characters.filter((char) => char.player.id === this.state.playerID);
-        const otherCharacters = this.characters.filter((char) => char.player.id !== this.state.playerID);
+        if (!(data.characters instanceof Array)) {
+            return <div className={classes.loader}>
+                <Loader text="Loading Characters" />
+            </div>
+        }
+
+        const ownCharacters = data.characters.filter((char) => parseInt(char.player.id) === this.state.playerID);
+        const otherCharacters = data.characters.filter((char) => parseInt(char.player.id) !== this.state.playerID);
 
         return (
             <div className={classes.root}>
@@ -71,4 +84,6 @@ CharacterList.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(CharacterList);
+export default graphql(GQL_GET_CHARACTERS)(
+    withStyles(styles)(CharacterList)
+);

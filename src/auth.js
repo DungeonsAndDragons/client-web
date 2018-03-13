@@ -6,13 +6,13 @@ import { client } from './graphql'
 const GQL_LoginToken = gql`
     query LoginToken($user: String!, $password: String!) {
         token(username: $user, password: $password)
-    }`
+    }`;
 
 const GQL_RefreshToken = gql`
     query RefreshToken {
         refreshToken
     }
-    `
+    `;
 
 export async function refreshToken() {
     return await client.query({

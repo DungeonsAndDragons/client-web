@@ -46,7 +46,7 @@ class SessionTable extends React.Component {
         const target_tomorrow = new Date(target.getFullYear(), target.getMonth(), target.getDate() + 1);
         const target_yesterday = new Date(target.getFullYear(), target.getMonth(), target.getDate() - 1);
         if (datesAreTheSameDay(target, today)) {
-            return time;
+            return `Today ${time}`;
         } else if (datesAreTheSameDay(target_tomorrow, today)) {
             return `Tomorrow ${time}`;
         } else if (datesAreTheSameDay(target_yesterday, today)) {
