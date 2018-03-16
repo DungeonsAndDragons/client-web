@@ -12,6 +12,9 @@ import Icon from 'material-ui/Icon';
 
 import { isTokenValid } from '../auth'
 import { client } from '../graphql'
+import { wrapComponentWithAppState } from '../state';
+import Snackbars from './snackbars/snackbar';
+import {injectState} from "freactal";
 
 const t = createMuiTheme({
   palette: {
@@ -86,7 +89,7 @@ class App extends React.Component {
     }
 
     render() {
-        const { classes, children, location } = this.props;
+        const { classes, children, location, state } = this.props;
         const { anchorEl } = this.state;
         const open = Boolean(anchorEl);
 
@@ -98,14 +101,14 @@ class App extends React.Component {
             </Toolbar>
         ) : (
             <Toolbar>
-                <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                    <Icon>menu</Icon>
+                <IconButton className={classes.menuButton} onClick={state.menu.onClick} color="inherit" aria-label="Menu">
+                    <Icon>{state.menu.icon}</Icon>
                 </IconButton>
                 <Typography variant="title" color="inherit" style={{ flex: 1 }}>
                     Dungeons & Dragons
                 </Typography>
                 <Typography variant="caption" color="inherit">
-                    Til Blechschmidt
+                    Max Mustermann
                 </Typography>
                 <div>
                     <IconButton
@@ -148,6 +151,7 @@ class App extends React.Component {
                             {new Date().getFullYear()} © Pen and Paper Referat - Nordakademie Elmshorn
                         </Typography>
                     </div>
+                    <Snackbars />
                 </div>
             </MuiThemeProvider>
         );
@@ -159,4 +163,6 @@ App.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(App);
+export default wrapComponentWithAppState(
+    injectState(withStyles(styles)(App))
+);

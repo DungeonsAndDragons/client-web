@@ -11,7 +11,7 @@ import { client } from './graphql'
 import App from './components/app';
 import Login from './components/login';
 import Dashboard from './components/dashboard/dashboard';
-import Character from './components/dashboard/characters/character';
+import Character from './components/character/character';
 
 const BrowserRouter = createBrowserRouter({
     historyOptions: { useBeforeUnload: true },

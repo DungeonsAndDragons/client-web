@@ -8,8 +8,8 @@ import Grid from 'material-ui/Grid';
 import Subheader from 'material-ui/List/ListSubheader';
 
 import CharacterListItem from './characterListItem';
-import {getPlayerID} from "../../../auth";
-import Loader from "../../loader/loader";
+import {getPlayerID} from "../../auth";
+import Loader from "../loader/loader";
 
 const styles = theme => ({
     root: {},

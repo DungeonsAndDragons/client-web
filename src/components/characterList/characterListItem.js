@@ -5,7 +5,7 @@ import {withStyles} from 'material-ui/styles';
 import Card, { CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
-import {getBinaryURL} from "../../../binaryStorage";
+import {getBinaryURL} from "../../binaryStorage";
 
 const styles = theme => ({
     root: {
